@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 14 Apr 2012 09:21:16 PM CEST
+EESchema Schematic File Version 2  date Sat 14 Apr 2012 09:36:54 PM CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -44,6 +44,24 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 2050 5250 1    60   ~ 0
+(probably)
+Text Notes 2250 5250 1    60   ~ 0
+(probably)
+NoConn ~ 2250 5300
+Text Notes 5500 3100 0    60   ~ 0
+(probably)\n
+NoConn ~ 5650 2950
+NoConn ~ 2450 4800
+NoConn ~ 2850 4800
+NoConn ~ 2750 4800
+NoConn ~ 2250 6700
+NoConn ~ 2450 6700
+NoConn ~ 2750 6700
+NoConn ~ 2850 6700
+NoConn ~ 1950 6700
+NoConn ~ 1850 6700
+NoConn ~ 1750 6700
 Wire Wire Line
 	5750 3750 5750 3650
 Wire Wire Line
@@ -64,11 +82,11 @@ Wire Wire Line
 Wire Wire Line
 	1900 2400 1900 2100
 Wire Wire Line
-	2150 6100 2150 6600
+	2150 6100 2150 6700
 Wire Wire Line
 	4350 6000 3850 6000
 Wire Wire Line
-	2650 6100 2650 6600
+	2650 6100 2650 6700
 Wire Wire Line
 	5350 1500 5250 1500
 Wire Wire Line
@@ -120,7 +138,7 @@ Wire Wire Line
 Wire Wire Line
 	4350 4650 3950 4650
 Wire Wire Line
-	2350 6100 2350 6600
+	2350 6100 2350 6700
 Wire Wire Line
 	5250 4650 5650 4650
 Wire Wire Line
@@ -139,7 +157,7 @@ Wire Wire Line
 Wire Wire Line
 	2600 4000 2600 4300
 Wire Wire Line
-	1850 5300 1850 5000
+	1850 5300 1850 4800
 Connection ~ 7350 2250
 Wire Wire Line
 	7350 2350 7350 2250
@@ -166,21 +184,21 @@ Wire Wire Line
 Wire Wire Line
 	2200 4000 2200 4300
 Wire Wire Line
-	1750 6100 1750 6400
+	1750 6100 1750 6700
 Wire Wire Line
-	1750 5300 1750 5000
+	1750 5300 1750 4800
 Wire Wire Line
-	2450 6100 2450 6400
+	2450 6100 2450 6700
 Wire Wire Line
-	2750 5300 2750 5000
+	2750 5300 2750 4800
 Wire Wire Line
-	2550 5300 2550 5000
+	2550 5300 2550 4800
 Wire Wire Line
-	2250 6100 2250 6400
+	2250 6100 2250 6700
 Wire Wire Line
-	1850 6100 1850 6400
+	1850 6100 1850 6700
 Wire Wire Line
-	1950 6100 1950 6400
+	1950 6100 1950 6700
 Wire Wire Line
 	2100 4000 2100 4300
 Wire Wire Line
@@ -209,7 +227,7 @@ Wire Wire Line
 Wire Wire Line
 	6150 4650 6450 4650
 Wire Wire Line
-	1950 5300 1950 5000
+	1950 5300 1950 4800
 Wire Wire Line
 	1500 7400 1500 7300
 Wire Wire Line
@@ -240,7 +258,7 @@ Wire Wire Line
 Wire Wire Line
 	4350 6450 3950 6450
 Wire Wire Line
-	2550 6100 2550 6600
+	2550 6100 2550 6700
 Wire Wire Line
 	2850 5300 2850 4800
 Wire Wire Line
@@ -252,7 +270,7 @@ Wire Wire Line
 Wire Wire Line
 	10400 5400 10000 5400
 Wire Wire Line
-	2750 6100 2750 6600
+	2750 6100 2750 6700
 Wire Wire Line
 	6950 5400 6850 5400
 Wire Wire Line
@@ -281,7 +299,7 @@ Wire Wire Line
 Wire Wire Line
 	4750 1500 4250 1500
 Wire Wire Line
-	2050 6100 2050 6600
+	2050 6100 2050 6700
 Wire Wire Line
 	4350 5550 3850 5550
 Wire Wire Line
@@ -357,16 +375,16 @@ Text Label 1900 2100 3    60   ~ 0
 Phi_TG23
 Text Label 2000 2100 3    60   ~ 0
 Phi_TG1
-Text Label 2150 6600 1    60   ~ 0
+Text Label 2150 6700 1    60   ~ 0
 Phi_TG_1_in
 Text Label 3850 5550 0    60   ~ 0
 Phi_TG_1_in
 Text Label 3850 6000 0    60   ~ 0
 Phi_TG_23_in
-Text Label 2050 6600 1    60   ~ 0
+Text Label 2050 6700 1    60   ~ 0
 Phi_TG_23_in
 NoConn ~ 2050 5300
-Text Label 2650 6600 1    60   ~ 0
+Text Label 2650 6700 1    60   ~ 0
 ADDR_A_inv
 Text Label 4250 1500 0    60   ~ 0
 ADDR_A_inv
@@ -494,7 +512,7 @@ F 1 "150" V 7200 5400 50  0000 C CNN
 	1    7200 5400
 	0    -1   -1   0   
 $EndComp
-Text Label 2750 6600 1    60   ~ 0
+Text Label 2750 6700 1    60   ~ 0
 photo_out
 Text Label 9500 5400 2    60   ~ 0
 photo_out
@@ -577,7 +595,7 @@ Text Label 2850 6700 1    60   ~ 0
 VCC_inverter_in
 Text Label 2350 4800 3    60   ~ 0
 Phi_1_in
-Text Label 2550 6600 1    60   ~ 0
+Text Label 2550 6700 1    60   ~ 0
 Phi_2_in
 $Comp
 L DGND #PWR?
@@ -663,7 +681,7 @@ F 1 "C" H 3800 4100 50  0000 L CNN
 	1    3750 4200
 	0    -1   -1   0   
 $EndComp
-Text Label 2350 6600 1    60   ~ 0
+Text Label 2350 6700 1    60   ~ 0
 Phi_RB_in
 Text Label 3950 4200 0    60   ~ 0
 Phi_RB_in
@@ -789,7 +807,7 @@ F 1 "C" H 1550 7000 50  0000 L CNN
 $EndComp
 Text Label 1200 6900 0    60   ~ 0
 VDD_in
-Text Label 1950 5000 3    60   ~ 0
+Text Label 1950 4800 3    60   ~ 0
 VDD_in
 Text Label 6450 4200 2    60   ~ 0
 Phi_RB
@@ -817,10 +835,10 @@ Text Label 2700 4300 1    60   ~ 0
 Phi_RB
 Text Label 2600 4300 1    60   ~ 0
 Phi_CLB
-Text Label 1850 5000 3    60   ~ 0
-FOO_21
+Text Label 1850 4800 3    60   ~ 0
+V_out
 Text Label 7050 2800 2    60   ~ 0
-FOO_21
+V_out
 $Comp
 L VDD #PWR10
 U 1 1 4F89C048
@@ -904,21 +922,21 @@ Text Label 2100 2100 3    60   ~ 0
 Phi_1
 Text Label 2200 2100 3    60   ~ 0
 Phi_2
-Text Label 1750 5000 3    60   ~ 0
+Text Label 1750 4800 3    60   ~ 0
 AGND
-Text Label 1750 6400 1    60   ~ 0
+Text Label 1750 6700 1    60   ~ 0
 AGND
-Text Label 1850 6400 1    60   ~ 0
+Text Label 1850 6700 1    60   ~ 0
 AGND
-Text Label 1950 6400 1    60   ~ 0
+Text Label 1950 6700 1    60   ~ 0
 AGND
-Text Label 2750 5000 3    60   ~ 0
+Text Label 2750 4800 3    60   ~ 0
 DGND
-Text Label 2550 5000 3    60   ~ 0
+Text Label 2550 4800 3    60   ~ 0
 DGND
-Text Label 2450 6400 1    60   ~ 0
+Text Label 2450 6700 1    60   ~ 0
 DGND
-Text Label 2250 6400 1    60   ~ 0
+Text Label 2250 6700 1    60   ~ 0
 DGND
 $Comp
 L CONN_12X2 P1
