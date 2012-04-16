@@ -4,6 +4,28 @@
 #include <avr/interrupt.h>
 #include "uart.h"
 
+//Pin mapping
+#define PHI_OUT     PORTD
+#define PHI_DDR     DDRD
+#define PHI1_PIN    5
+#define PHI2_PIN    4
+#define TG1_OUT     PORTB
+#define TG1_DDR     DDRB
+#define TG1_PIN     1
+#define TG23_OUT    PORTB
+#define TG23_DDR    DDRB
+#define TG23_PIN    2
+#define RB_OUT      PORTD
+#define RB_DDR      DDRD
+#define RB_PIN      7
+#define CLB_OUT     PORTD
+#define CLB_DDR     DDRD
+#define CLB_PIN     6
+#define ADDR_OUT    PORTD
+#define ADDR_DDR    DDRD
+#define ADDRA_PIN   2
+#define ADDRB_PIN   3
+
 void setup(void);
 void loop(void);
 
@@ -14,7 +36,13 @@ int main(void){
 
 void setup(){
     uart_init(UART_BAUD_SELECT_DOUBLE_SPEED(115201, F_CPU));
-    PORTB |= 0x38;
+    //PORTB |= 0x38;
+    PHI_DDR |= _BV(PHI1_PIN) | _BV(PHI2_PIN);
+    TG1_DDR |= _BV(TG1_PIN);
+    TG23_DDR |= _BV(TG23_PIN);
+    RB_DDR |= _BV(RB_PIN);
+    CLB_DDR |= _BV(CLB_PIN);
+    ADDR_DDR |= _BV(ADDRA_PIN) | _BV(ADDRB_PIN);
     sei();
 }
 
@@ -43,6 +71,7 @@ void loop(){ //one frame
         char c = receive_status&0xFF;
         receive_status &= 0xFF00;
         if(!receive_status){
+            uart_putc(c);
         }
     }while(!receive_status);
     //Transfer
