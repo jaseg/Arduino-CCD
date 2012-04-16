@@ -35,15 +35,21 @@ int main(void){
 }
 
 void setup(){
-    uart_init(UART_BAUD_SELECT_DOUBLE_SPEED(115201, F_CPU));
+    uart_init(UART_BAUD_SELECT_DOUBLE_SPEED(57600, F_CPU));
     //PORTB |= 0x38;
+    //CCD port init
     PHI_DDR |= _BV(PHI1_PIN) | _BV(PHI2_PIN);
     TG1_DDR |= _BV(TG1_PIN);
     TG23_DDR |= _BV(TG23_PIN);
     RB_DDR |= _BV(RB_PIN);
     CLB_DDR |= _BV(CLB_PIN);
     ADDR_DDR |= _BV(ADDRA_PIN) | _BV(ADDRB_PIN);
-    sei();
+    //ADC init        //
+    ADMUX  = 0x60;   //Reference: AVcc; ADLAR=1 (ADCH contains the 8MSBs of the result); set mux to ADC0
+    ADCSRA = 0xEF;  //Enable ADC, start first conversion, enable auto trigger, enable ADC interrupt, prescaler=128 (125kHz ADC clock @ 16MHz sys clock)
+    ADCSRB = 0x00; //Nothin special...
+    DIDR0  = 0x01;//Use only ADC0
+    sei();       //
 }
 
 int parseHex(char* buf){
@@ -74,34 +80,44 @@ void loop(){ //one frame
             uart_putc(c);
         }
     }while(!receive_status);
-    //Transfer
-    PHI_OUT &= ~_BV(PHI1_PIN);
-    PHI_OUT |= ~BV(PHI2_PIN);
-    _delay_us(1);
-    TG1_OUT &= ~_BV(TG1_PIN);
-    TG23_OUT &= ~_BV(TG23_PIN);
-    _delay_us(10);
-    TG1_out |= _BV(TG1_PIN);
-    TG23_OUT |= _BV(TG23_PIN);
-    _delay_us(1);
-    PHI_OUT |= ~BV(PHI1_PIN);
-    PHI_OUT &= ~_BV(PHI2_PIN);
-    for(uint16_t i=5384; i; i--){
-        //Pixel clock
+}
+
+ISR(ADC_vect){
+    static uint16_t fpos = 0;
+    if(!fpos){
+        //Transfer
         PHI_OUT &= ~_BV(PHI1_PIN);
-        PHI_OUT |= ~BV(PHI2_PIN);
-        RB_OUT |= _BV(RB_PIN);
-        _delay_us(0);
-        RB_OUT &= _BV(RB_PIN);
-        _delay_us(0);
-        CLB_OUT |= _BV(CLB_PIN);
-        _delay_us(0);
-        CLB_OUT &= _BV(CLB_PIN);
-        _delay_us(0);
-        PHI_OUT |= ~BV(PHI1_PIN);
+        PHI_OUT |= _BV(PHI2_PIN);
+        _delay_us(1);
+        TG1_OUT &= ~_BV(TG1_PIN);
+        TG23_OUT &= ~_BV(TG23_PIN);
+        _delay_us(10);
+        TG1_OUT |= _BV(TG1_PIN);
+        TG23_OUT |= _BV(TG23_PIN);
+        _delay_us(1);
+        PHI_OUT |= _BV(PHI1_PIN);
         PHI_OUT &= ~_BV(PHI2_PIN);
-        _delay_us(1); //t_d
-        takeAnalogMeasurementAndRejoice();
-        //repeat.
+        fpos = 5384;
     }
+    if(fpos & 2){
+        if(ADCH != 0)
+            uart_putc(ADCH);
+        else
+            uart_putc(0xFF);
+    }
+    //Pixel clock
+    PHI_OUT &= ~_BV(PHI1_PIN);
+    PHI_OUT |= _BV(PHI2_PIN);
+    RB_OUT |= _BV(RB_PIN);
+    _delay_us(0);
+    RB_OUT &= ~_BV(RB_PIN);
+    _delay_us(0);
+    CLB_OUT |= _BV(CLB_PIN);
+    _delay_us(0);
+    CLB_OUT &= ~_BV(CLB_PIN);
+    _delay_us(0);
+    PHI_OUT |= _BV(PHI1_PIN);
+    PHI_OUT &= ~_BV(PHI2_PIN);
+    _delay_us(1); //t_d
+    fpos--;
 }

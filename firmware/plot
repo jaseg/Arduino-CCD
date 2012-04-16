@@ -1,0 +1,13 @@
+#!/bin/bash
+(
+python<<HERE
+import serial
+ser = serial.Serial("/dev/ttyACM0", 57600)
+while True:
+    try:
+        foo = ser.read()
+        print ord(foo[0])
+    except KeyboardInterrupt:
+        break
+HERE
+)| feedgnuplot --stream --xlen 5384
