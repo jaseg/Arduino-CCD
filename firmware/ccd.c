@@ -44,6 +44,7 @@ void setup(){
     RB_DDR |= _BV(RB_PIN);
     CLB_DDR |= _BV(CLB_PIN);
     ADDR_DDR |= _BV(ADDRA_PIN) | _BV(ADDRB_PIN);
+    //ADDR_OUT |= (1<<ADDRA_PIN) | (1<<ADDRB_PIN);
     //ADC init        //
     ADMUX  = 0x60;   //Reference: AVcc; ADLAR=1 (ADCH contains the 8MSBs of the result); set mux to ADC0
     ADCSRA = 0xEF;  //Enable ADC, start first conversion, enable auto trigger, enable ADC interrupt, prescaler=128 (125kHz ADC clock @ 16MHz sys clock)
@@ -88,22 +89,20 @@ ISR(ADC_vect){
         //Transfer
         PHI_OUT &= ~_BV(PHI1_PIN);
         PHI_OUT |= _BV(PHI2_PIN);
-        _delay_us(1);
+        _delay_us(1000);
         TG1_OUT &= ~_BV(TG1_PIN);
         TG23_OUT &= ~_BV(TG23_PIN);
-        _delay_us(10);
+        _delay_us(1000);
         TG1_OUT |= _BV(TG1_PIN);
         TG23_OUT |= _BV(TG23_PIN);
         _delay_us(1);
         PHI_OUT |= _BV(PHI1_PIN);
         PHI_OUT &= ~_BV(PHI2_PIN);
         fpos = 5384;
+        uart_putc('\n');
     }
     if(fpos & 2){
-        if(ADCH != 0)
-            uart_putc(ADCH);
-        else
-            uart_putc(0xFF);
+        uart_putc(ADCH);
     }
     //Pixel clock
     PHI_OUT &= ~_BV(PHI1_PIN);
@@ -119,5 +118,6 @@ ISR(ADC_vect){
     PHI_OUT |= _BV(PHI1_PIN);
     PHI_OUT &= ~_BV(PHI2_PIN);
     _delay_us(1); //t_d
+    //ADCSRA |= (1<<ADSC);
     fpos--;
 }

@@ -6,8 +6,10 @@ ser = serial.Serial("/dev/ttyACM0", 57600)
 while True:
     try:
         foo = ser.read()
+        if(foo == "\n"):
+            print "replot"
         print ord(foo[0])
     except KeyboardInterrupt:
         break
 HERE
-)| feedgnuplot --stream --xlen 5384
+)| feedgnuplot --stream 0 --xlen $(( 5384/2 ))
